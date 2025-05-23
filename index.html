@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mama Bea's Home & Fashion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <base target="_self">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+        }
+        .nav-link:hover {
+            color: #059669; /* green-600 */
+        }
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .product-card img {
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover img {
+            transform: scale(1.1);
+        }
+        .cart-badge {
+            animation: pulse 2s infinite;
+            background-color: #059669; /* green-600 */
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .text-blue-600 {
+            color: #059669; /* Changed from blue-600 to green-600 */
+        }
+        .bg-blue-600 {
+            background-color: #059669; /* Changed from blue-600 to green-600 */
+        }
+        .hover\:bg-blue-700:hover {
+            background-color: #047857; /* Changed from blue-700 to green-700 */
+        }
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px; /* Adjusts for fixed header */
+        }
+        .section-anchor {
+            display: block;
+            position: relative;
+            top: -100px; /* Adjusts for fixed header */
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <!-- Navigation -->
+    <nav class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Business Name - Standing Alone -->
+            <div class="text-center py-6 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex justify-center items-center">
+                    <div class="relative">
+                        <!-- Logo Container -->
+                        <div class="flex items-center justify-center space-x-4">
+                            <!-- Logo Image Container -->
+                            <div class="w-20 h-20 rounded-full overflow-hidden border-4 border-green-600 shadow-lg">
+                                <img src="logo.jpg" alt="Mama Bea's Logo" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/200x200?text=MB'">
+                            </div>
+                            <!-- Brand Name -->
+                            <div class="text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
+                                <span class="text-green-600">MAMA</span> BEA'S
+                                <div class="text-2xl font-semibold text-gray-600 dark:text-gray-300 mt-1">
+                                    HOME & FASHION
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation Menu -->
+            <div class="py-4">
+                <div class="flex justify-center items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-800 dark:text-gray-300 hover:text-green-600 px-4 py-2 rounded-md text-lg font-semibold transition-all hover:bg-green-50 dark:hover:bg-green-900/20 border-b-2 border-transparent hover:border-green-600">Home</a>
+                    <a href="#products" class="nav-link text-gray-800 dark:text-gray-300 hover:text-green-600 px-4 py-2 rounded-md text-lg font-semibold transition-all hover:bg-green-50 dark:hover:bg-green-900/20 border-b-2 border-transparent hover:border-green-600">Products</a>
+                    <a href="#categories" class="nav-link text-gray-800 dark:text-gray-300 hover:text-green-600 px-4 py-2 rounded-md text-lg font-semibold transition-all hover:bg-green-50 dark:hover:bg-green-900/20 border-b-2 border-transparent hover:border-green-600">Categories</a>
+                    <a href="#purchase-history" class="nav-link text-gray-800 dark:text-gray-300 hover:text-green-600 px-4 py-2 rounded-md text-lg font-semibold transition-all hover:bg-green-50 dark:hover:bg-green-900/20 border-b-2 border-transparent hover:border-green-600">Purchase History</a>
+                    <a href="#contact" class="nav-link text-gray-800 dark:text-gray-300 hover:text-green-600 px-4 py-2 rounded-md text-lg font-semibold transition-all hover:bg-green-50 dark:hover:bg-green-900/20 border-b-2 border-transparent hover:border-green-600">Contact</a>
+                    <a href="#about" class="nav-link text-gray-800 dark:text-gray-300 hover:text-green-600 px-4 py-2 rounded-md text-lg font-semibold transition-all hover:bg-green-50 dark:hover:bg-green-900/20 border-b-2 border-transparent hover:border-green-600">About Us</a>
+                    <button onclick="showOrderMessage()" class="nav-link text-gray-800 dark:text-gray-300 hover:text-green-600 px-4 py-2 rounded-md text-lg font-semibold transition-all hover:bg-green-50 dark:hover:bg-green-900/20 border-b-2 border-transparent hover:border-green-600">
+                        <i class="fas fa-paper-plane mr-2"></i>Send Order
+                    </button>
+                    <button class="relative text-gray-800 dark:text-gray-300 hover:text-green-600 text-xl" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center cart-badge">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Floating Contact Buttons -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col space-y-4">
+        <!-- WhatsApp Button -->
+        <a href="https://wa.me/233208990922" target="_blank" class="bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg transition-all transform hover:scale-110">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </a>
+        <!-- Phone Button -->
+        <a href="tel:+233599655802" class="bg-green-600 hover:bg-green-700 text-white rounded-full p-4 shadow-lg transition-all transform hover:scale-110">
+            <i class="fas fa-phone text-2xl"></i>
+        </a>
+    </div>
+
+    <!-- Quick Contact Modal -->
+    <div id="quick-contact-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-md mx-auto mt-20 rounded-lg shadow-xl">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white">Quick Contact</h3>
+                    <button onclick="toggleQuickContact()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <a href="https://wa.me/233208990922" target="_blank" class="flex items-center justify-center space-x-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-md transition-all">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                        <span>Chat on WhatsApp</span>
+                    </a>
+                    <a href="tel:+233599655802" class="flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                        <i class="fas fa-phone text-xl"></i>
+                        <span>Call Us</span>
+                    </a>
+                    <div class="text-center text-gray-600 dark:text-gray-400">
+                        <p class="mb-2">Or visit us at:</p>
+                        <p>Spintex, Accra, Ghana</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="section-anchor"></section>
+    <div class="hero h-96 flex items-center justify-center text-white">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Welcome to Mama Bea's Home & Fashion</h1>
+            <p class="text-xl md:text-2xl mb-8">Your One-Stop Shop for Fashion and Home Essentials</p>
+            <a href="#products" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-all">Shop Now</a>
+        </div>
+    </div>
+
+    <!-- Categories Section -->
+    <section id="categories" class="section-anchor"></section>
+    <section id="categories" class="py-16 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white">Our Categories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="category-card bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 text-center transition-all">
+                    <i class="fas fa-tshirt text-4xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">Clothing</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Trendy and comfortable clothing for all</p>
+                </div>
+                <div class="category-card bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 text-center transition-all">
+                    <i class="fas fa-shoe-prints text-4xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">Footwear</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Stylish shoes for every occasion</p>
+                </div>
+                <div class="category-card bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 text-center transition-all">
+                    <i class="fas fa-bed text-4xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">Bedsheets</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Comfortable and beautiful bedsheets</p>
+                </div>
+                <div class="category-card bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 text-center transition-all">
+                    <i class="fas fa-window-maximize text-4xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">Curtains</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Elegant curtains for your home</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="section-anchor"></section>
+    <section id="products" class="py-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white">Featured Products</h2>
+            
+            <!-- Clothing Section -->
+            <div class="mb-20">
+                <h3 class="text-2xl font-semibold mb-8 text-gray-800 dark:text-white border-b pb-2">Clothing</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="product-card bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <div class="h-80 w-full">
+                            <img src="hd1.webp" alt="Clothing Materials" class="w-full h-full object-cover rounded-lg">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-gray-800 dark:text-white">Summer Dress</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">Elegant summer dress with floral pattern</p>
+                            <p class="text-green-600 font-bold text-lg mb-4">Price: GHS 150.00</p>
+                            <button onclick="addToCart('Summer Dress', 150.00)" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <div class="h-80 w-full">
+                            <img src="hd4.jpg" alt="Clothing Materials" class="w-full h-full object-cover rounded-lg">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-gray-800 dark:text-white">Colorful Fabrics</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">A variety of vibrant fabric colors for your style</p>
+                            <p class="text-green-600 font-bold text-lg mb-4">Price: GHS 120.00</p>
+                            <button onclick="addToCart('Colorful Fabrics', 120.00)" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <div class="h-80 w-full">
+                            <img src="hd6.jpg" alt="Clothing Materials" class="w-full h-full object-cover rounded-lg">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-gray-800 dark:text-white">Premium Cotton</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">Soft and high-quality cotton fabrics in many shades</p>
+                            <p class="text-green-600 font-bold text-lg mb-4">Price: GHS 140.00</p>
+                            <button onclick="addToCart('Premium Cotton', 140.00)" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footwear Section -->
+            <div class="mb-20">
+                <h3 class="text-2xl font-semibold mb-8 text-gray-800 dark:text-white border-b pb-2">Footwear</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="product-card bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <div class="relative pb-[120%]">
+                            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1012&q=80" alt="Shoe Item" class="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-gray-800 dark:text-white">Casual Sneakers</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">Comfortable and stylish sneakers</p>
+                            <p class="text-green-600 font-bold text-lg mb-4">Price: GHS 200.00</p>
+                            <button onclick="addToCart('Casual Sneakers', 200.00)" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <!-- New Footwear Product 1 -->
+                    <div class="product-card bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <div class="relative pb-[120%]">
+                            <img src="s1.webp" alt="Footwear Item" class="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-gray-800 dark:text-white">Boots</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">Bootiful styles to conquer the day</p>
+                            <p class="text-green-600 font-bold text-lg mb-4">Price: GHS 150.00</p>
+                            <button onclick="addToCart('Footwear Product 2', 0.00)" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                     <!-- New Footwear Product 2 -->
+                    <div class="product-card bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <div class="relative pb-[120%]">
+                            <img src="s4.jpg" alt="Footwear Item" class="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-gray-800 dark:text-white">Heels</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">Elevate your style with these stunning heels</p>
+                            <p class="text-green-600 font-bold text-lg mb-4">Price: GHS 200.00</p>
+                            <button onclick="addToCart('Footwear Product 3', 0.00)" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bedsheets Section -->
+            <div class="mb-20">
+                <h3 class="text-2xl font-semibold mb-8 text-gray-800 dark:text-white border-b pb-2">Bedsheets</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="product-card bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <div class="relative pb-[120%]">
+                            <img src="bs6.jpg" alt="Bedsheet Item" class="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-gray-800 dark:text-white">Luxury Bedsheet Set</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">Premium cotton bedsheet set</p>
+                            <p class="text-green-600 font-bold text-lg mb-4">Price: GHS 600.00</p>
+                            <button onclick="addToCart('Luxury Bedsheet Set', 450.00)" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <!-- New Bedsheet Product 1 -->
+                    <div class="product-card bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <div class="relative pb-[120%]">
+                            <img src="bs8.jpg" alt="Bedsheet Item" class="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-gray-800 dark:text-white">Bedsheet Product Name 2</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">Bedsheet Product Description 2</p>
+                            <p class="text-green-600 font-bold text-lg mb-4">Price: GHS 600.00</p>
+                            <button onclick="addToCart('Bedsheet Product 2', 0.00)" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                     <!-- New Bedsheet Product 2 -->
+                    <div class="product-card bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <div class="relative pb-[120%]">
+                            <img src="bs4.jpg" alt="Bedsheet Item" class="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-gray-800 dark:text-white">Bedsheet Product Name 3</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">Bedsheet Product Description 3</p>
+                            <p class="text-green-600 font-bold text-lg mb-4">Price: GHS 600.00</p>
+                            <button onclick="addToCart('Bedsheet Product 3', 0.00)" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Curtains Section -->
+            <div class="mb-20">
+                <h3 class="text-2xl font-semibold mb-8 text-gray-800 dark:text-white border-b pb-2">Curtains</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="product-card bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <div class="relative pb-[120%]">
+                            <img src="c3.jpg" alt="Curtain Item" class="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-gray-800 dark:text-white">Patterned Cream Curtains</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">Elegant cream curtains with modern patterns</p>
+                            <p class="text-green-600 font-bold text-lg mb-4">Price: GHS 300.00</p>
+                            <button onclick="addToCart('Patterned Cream Curtains', 250.00)" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <div class="relative pb-[120%]">
+                            <img src="c1.jpg" alt="Curtain Item" class="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-gray-800 dark:text-white">Modern Teal Curtains</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">Sleek teal curtains for a contemporary look</p>
+                            <p class="text-green-600 font-bold text-lg mb-4">Price: GHS 270.00</p>
+                            <button onclick="addToCart('Modern Teal Curtains', 270.00)" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                        <div class="relative pb-[120%]">
+                            <img src="c2.jpg" alt="Curtain Item" class="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-gray-800 dark:text-white">Light Blue & Patterned Curtains</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-3">Chic blue curtains with unique patterns</p>
+                            <p class="text-green-600 font-bold text-lg mb-4">Price: GHS 350.00</p>
+                            <button onclick="addToCart('Blue & Patterned Curtains', 260.00)" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Purchase History Section -->
+    <section id="purchase-history" class="section-anchor"></section>
+    <section id="purchase-history" class="py-16 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm">
+        <div class="container mx-auto px-4">
+            <h2 class="text-5xl font-bold text-green-700 mb-8 text-center">Purchase History</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="flex justify-center space-x-4 mb-8">
+                    <button id="toggle-history" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300 flex items-center">
+                        <i class="fas fa-history mr-2"></i>View Purchase History
+                    </button>
+                    <button id="clear-history" class="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition duration-300 flex items-center">
+                        <i class="fas fa-trash-alt mr-2"></i>Clear History
+                    </button>
+                </div>
+                
+                <div id="history-content" class="bg-white rounded-lg shadow-lg p-6" style="display: none;">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-semibold text-gray-800">Your Orders</h3>
+                        <div class="flex space-x-2">
+                            <select id="order-filter" class="rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600">
+                                <option value="all">All Orders</option>
+                                <option value="delivered">Delivered</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                            <select id="order-sort" class="rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="highest">Highest Amount</option>
+                                <option value="lowest">Lowest Amount</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="orders-list" class="space-y-6">
+                        <!-- Orders will be populated here -->
+                    </div>
+                </div>
+                
+                <div id="no-history" class="text-center py-12 bg-white rounded-lg shadow-lg">
+                    <i class="fas fa-box-open text-6xl text-gray-400 mb-4"></i>
+                    <p class="text-2xl text-gray-600 mb-2">No purchase history available yet.</p>
+                    <p class="text-gray-500">Your orders will appear here after you make a purchase.</p>
+                    <a href="#products" class="inline-block mt-6 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300">
+                        Start Shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-md mx-auto mt-20 rounded-lg shadow-xl">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white">Shopping Cart</h3>
+                    <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="cart-items" class="space-y-4">
+                    <!-- Cart items will be added here dynamically -->
+                </div>
+                <div class="border-t pt-4 mt-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-lg font-semibold text-gray-800 dark:text-white">Total:</span>
+                        <span id="cart-total" class="text-lg font-bold text-green-600">GHS 0.00</span>
+                    </div>
+                    <button onclick="checkout()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md transition-all">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-anchor"></section>
+    <section id="contact" class="py-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white">Contact Us</h2>
+            <div class="flex justify-center">
+                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 w-full max-w-md">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800 dark:text-white">Send us a Message</h3>
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+233 XX XXX XXXX" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600">
+                        </div>
+                        <div>
+                            <label for="product" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Product Category (Optional)
+                                <span class="text-gray-500 text-xs">- Select "None" if you don't want to specify a product</span>
+                            </label>
+                            <select id="product" name="product" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600">
+                                <option value="none">None - General Inquiry</option>
+                                <optgroup label="Clothing">
+                                    <option value="Summer Dress">Summer Dress - GHS 150.00</option>
+                                    <option value="Colorful Fabrics">Colorful Fabrics - GHS 120.00</option>
+                                    <option value="Premium Cotton">Premium Cotton - GHS 140.00</option>
+                                </optgroup>
+                                <optgroup label="Footwear">
+                                    <option value="Casual Sneakers">Casual Sneakers - GHS 200.00</option>
+                                    <option value="Boots">Boots - GHS 150.00</option>
+                                    <option value="Heels">Heels - GHS 200.00</option>
+                                </optgroup>
+                                <optgroup label="Bedsheets">
+                                    <option value="Luxury Bedsheet Set">Luxury Bedsheet Set - GHS 300.00</option>
+                                    <option value="Premium Bedsheet">Premium Bedsheet - GHS 600.00</option>
+                                    <option value="Designer Bedsheet">Designer Bedsheet - GHS 600.00</option>
+                                </optgroup>
+                                <optgroup label="Curtains">
+                                    <option value="Patterned Cream Curtains">Patterned Cream Curtains - GHS 300.00</option>
+                                    <option value="Modern Teal Curtains">Modern Teal Curtains - GHS 270.00</option>
+                                    <option value="Blue & Patterned Curtains">Blue & Patterned Curtains - GHS 350.00</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600"></textarea>
+                        </div>
+                        <button type="button" onclick="sendWhatsAppMessage()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md transition-all flex items-center justify-center">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            Send via WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="section-anchor"></section>
+    <section id="about" class="py-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white">About Us</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-semibold text-green-600">Welcome to Mama Bea's Home & Fashion</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-lg">
+                        We are your premier destination for quality fashion and home essentials. Our commitment to excellence and customer satisfaction has made us a trusted name in the industry.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-300 text-lg">
+                        At Mama Bea's, we offer a wide range of products including:
+                    </p>
+                    <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>Premium clothing and fabrics</li>
+                        <li>Stylish footwear for all occasions</li>
+                        <li>Luxurious bedsheets and bedding sets</li>
+                        <li>Elegant curtains and home decor</li>
+                    </ul>
+                </div>
+                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-8">
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Discover More Products</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        What you see on our website is just a glimpse of our extensive collection. We have many more products available that aren't listed here. To explore our full range of products and get personalized recommendations, please contact us directly.
+                    </p>
+                    <div class="space-y-4">
+                        <a href="https://wa.me/233208990922" target="_blank" class="flex items-center justify-center space-x-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-all">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                            <span>Chat with Us on WhatsApp</span>
+                        </a>
+                        <a href="tel:+233599655802" class="flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-all">
+                            <i class="fas fa-phone text-xl"></i>
+                            <span>Call Us Directly</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800/90 backdrop-blur-md text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center text-center">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-2 text-white">Contact Info</h3>
+                    <p class="text-gray-400 mb-1">
+                        <i class="fas fa-map-marker-alt text-green-600 mr-2"></i>
+                        Spintex, Accra, Ghana
+                    </p>
+                    <p class="text-gray-400 mb-1">
+                        <i class="fas fa-phone text-green-600 mr-2"></i>
+                        +233 59 965 5802
+                    </p>
+                    <p class="text-gray-400 mb-1">
+                        <i class="fab fa-whatsapp text-green-600 mr-2"></i>
+                        +233 20 899 0922
+                    </p>
+                    <p class="text-gray-400">
+                        <i class="fas fa-envelope text-green-600 mr-2"></i>
+                        gideonmensahmarfo@gmail.com
+                    </p>
+                </div>
+                <div class="w-full border-t border-gray-700 my-4"></div>
+                <div>
+                    <p class="text-lg font-medium">&copy; 2025 Mama Bea's Home & Fashion. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Order Message Modal -->
+    <div id="order-message-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-2xl mx-auto mt-20 rounded-lg shadow-xl">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white">Order Message Preview</h3>
+                    <button onclick="toggleOrderMessage()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                    <pre id="order-message-preview" class="whitespace-pre-wrap text-sm text-gray-800 dark:text-gray-200"></pre>
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button onclick="toggleOrderMessage()" class="px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+                        Close
+                    </button>
+                    <button onclick="sendOrderMessage()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md transition-all">
+                        <i class="fab fa-whatsapp mr-2"></i>Send via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Preline
+        document.addEventListener('DOMContentLoaded', () => {
+            window.HSStaticMethods.autoInit();
+        });
+
+        // Cart functionality
+        let cart = [];
+        let cartTotal = 0;
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            if (modal) {
+                modal.classList.toggle('hidden');
+            }
+        }
+
+        function addToCart(name, price) {
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity = (existingItem.quantity || 1) + 1;
+                existingItem.subtotal = existingItem.quantity * price;
+            } else {
+                cart.push({
+                    name,
+                    price,
+                    quantity: 1,
+                    subtotal: price
+                });
+            }
+            
+            updateCartTotal();
+            updateCartUI();
+            showNotification(`${name} added to cart!`);
+        }
+
+        function updateCartTotal() {
+            cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        }
+
+        function updateCartUI() {
+            const cartItems = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+            const cartBadge = document.querySelector('.cart-badge');
+
+            if (!cartItems || !cartTotalElement || !cartBadge) return;
+
+            cartItems.innerHTML = cart.map(item => `
+                <div class="flex justify-between items-center p-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md">
+                    <div class="flex-1">
+                        <span class="text-gray-800 dark:text-white">${item.name}</span>
+                        <div class="flex items-center space-x-2 mt-1">
+                            <button onclick="updateQuantity('${item.name}', ${item.quantity - 1})" class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <span class="text-sm text-gray-600">Qty: ${item.quantity}</span>
+                            <button onclick="updateQuantity('${item.name}', ${item.quantity + 1})" class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">GHS ${(item.price * item.quantity).toFixed(2)}</span>
+                        <button onclick="removeFromCart('${item.name}')" class="text-red-500 hover:text-red-700">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            cartTotalElement.textContent = `GHS ${cartTotal.toFixed(2)}`;
+            cartBadge.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+        }
+
+        function updateQuantity(name, newQuantity) {
+            if (newQuantity < 1) {
+                removeFromCart(name);
+                return;
+            }
+
+            const item = cart.find(item => item.name === name);
+            if (item) {
+                item.quantity = newQuantity;
+                item.subtotal = item.price * newQuantity;
+                updateCartTotal();
+                updateCartUI();
+            }
+        }
+
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            updateCartTotal();
+            updateCartUI();
+            showNotification(`${name} removed from cart!`);
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!');
+                return;
+            }
+
+            try {
+                // Create new order with proper item quantities
+                const order = createOrder([...cart], cartTotal);
+                const today = new Date();
+                const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+                const customerName = document.getElementById('name')?.value || 'Customer';
+                const customerPhone = document.getElementById('phone')?.value || '+233 XX XXX XXXX';
+                const customerEmail = document.getElementById('email')?.value || 'customer@email.com';
+
+                // Create WhatsApp message with Markdown formatting and proper quantities
+                const whatsappMessage = `*MAMA BEA'S HOME & FASHION*%0A` +
+                    `*ORDER RECEIPT*%0A%0A` +
+                    `*Order Details*%0A` +
+                    `📅 Date: ${today.toLocaleDateString()}%0A` +
+                    `⏰ Time: ${today.toLocaleTimeString()}%0A` +
+                    `🔖 Order #: ${order.id}%0A` +
+                    `📦 Status: Processing%0A` +
+                    `📝 Tracking #: ${order.trackingNumber}%0A%0A` +
+                    `*Customer Information*%0A` +
+                    `👤 Name: ${customerName}%0A` +
+                    `📱 Phone: ${customerPhone}%0A` +
+                    `📧 Email: ${customerEmail}%0A%0A` +
+                    `*Items Ordered:*%0A` +
+                    cart.map(item => `• ${item.name} (Qty: ${item.quantity}) - GHS ${(item.price * item.quantity).toFixed(2)}`).join('%0A') + '%0A%0A' +
+                    `*Price Summary*%0A` +
+                    `💰 Subtotal: GHS ${subtotal.toFixed(2)}%0A` +
+                    `🚚 Delivery Fee: GHS 0.00%0A` +
+                    `💵 *Total Amount: GHS ${cartTotal.toFixed(2)}*%0A%0A` +
+                    `*Payment Information*%0A` +
+                    `💳 Payment Method: Cash on Delivery%0A` +
+                    `📊 Payment Status: Pending%0A` +
+                    `💵 Amount to Pay: GHS ${cartTotal.toFixed(2)}%0A%0A` +
+                    `*Delivery Information*%0A` +
+                    `📅 Estimated Delivery: ${new Date(order.estimatedDelivery).toLocaleDateString()}%0A%0A` +
+                    `*Store Information*%0A` +
+                    `🏪 Mama Bea's Home & Fashion%0A` +
+                    `📍 Location: Spintex, Accra, Ghana%0A` +
+                    `📞 Phone: +233 59 965 5802 (Main)%0A` +
+                    `💬 WhatsApp: +233 20 899 0922 (Orders)%0A` +
+                    `📧 Email: gideonmensahmarfo@gmail.com%0A%0A` +
+                    `Thank you for shopping with Mama Bea's Home & Fashion! 🙏`;
+
+                // Send to the main WhatsApp number
+                const whatsappLink = `https://wa.me/233599655802?text=${whatsappMessage}`;
+                window.open(whatsappLink, '_blank');
+
+                // Generate PDF receipt with proper quantities
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Add header with logo placeholder
+                doc.setFontSize(24);
+                doc.setTextColor(5, 150, 105); // Green color
+                doc.text("MAMA BEA'S", 105, 20, { align: 'center' });
+                doc.setFontSize(18);
+                doc.text("HOME & FASHION", 105, 30, { align: 'center' });
+                
+                // Add order details section
+                doc.setFontSize(16);
+                doc.setTextColor(0, 0, 0);
+                doc.text("ORDER RECEIPT", 105, 45, { align: 'center' });
+            
+                // Add order information
+                doc.setFontSize(12);
+                doc.text(`Date: ${today.toLocaleDateString()}`, 20, 60);
+                doc.text(`Time: ${today.toLocaleTimeString()}`, 20, 67);
+                doc.text(`Order #: ${order.id}`, 20, 74);
+                doc.text(`Status: Processing`, 20, 81);
+                doc.text(`Tracking #: ${order.trackingNumber}`, 20, 88);
+                
+                // Add customer information section
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.text("Customer Information", 20, 105);
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'normal');
+                doc.text("Name: " + customerName, 20, 112);
+                doc.text("Phone: " + customerPhone, 20, 119);
+                doc.text("Email: " + customerEmail, 20, 126);
+                
+                // Add items table header
+                let y = 145;
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.text("Items", 20, y);
+                doc.text("Qty", 100, y);
+                doc.text("Price (GHS)", 130, y);
+                doc.text("Subtotal (GHS)", 170, y);
+                y += 10;
+            
+                // Add items with quantities and prices
+                doc.setFont(undefined, 'normal');
+                cart.forEach(item => {
+                    // Check if we need a new page
+                    if (y > 250) {
+                        doc.addPage();
+                        y = 20;
+                    }
+                    doc.text(item.name, 20, y);
+                    doc.text(item.quantity.toString(), 100, y);
+                    doc.text(item.price.toFixed(2), 130, y);
+                    doc.text((item.price * item.quantity).toFixed(2), 170, y);
+                    y += 10;
+                });
+
+                // Add total section with detailed breakdown
+                y += 10;
+                doc.setFont(undefined, 'bold');
+                doc.text("Price Summary", 20, y);
+                y += 10;
+                doc.setFont(undefined, 'normal');
+                doc.text("Subtotal:", 120, y);
+                doc.text(`GHS ${subtotal.toFixed(2)}`, 170, y);
+                y += 10;
+                doc.text("Delivery Fee:", 120, y);
+                doc.text("GHS 0.00", 170, y);
+                y += 10;
+                doc.setFont(undefined, 'bold');
+                doc.text("Total Amount:", 120, y);
+                doc.text(`GHS ${cartTotal.toFixed(2)}`, 170, y);
+                
+                // Add payment information
+                y += 20;
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.text("Payment Information", 20, y);
+                y += 10;
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'normal');
+                doc.text("Payment Method: Cash on Delivery", 20, y);
+                y += 7;
+                doc.text("Payment Status: Pending", 20, y);
+                y += 7;
+                doc.text("Amount to Pay: GHS " + cartTotal.toFixed(2), 20, y);
+                
+                // Add delivery information
+                y += 20;
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.text("Delivery Information", 20, y);
+                y += 10;
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'normal');
+                doc.text(`Estimated Delivery: ${new Date(order.estimatedDelivery).toLocaleDateString()}`, 20, y);
+                y += 7;
+                doc.text(`Tracking Number: ${order.trackingNumber}`, 20, y);
+
+                // Add store information
+                y += 20;
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.text("Store Information", 20, y);
+                y += 10;
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'normal');
+                doc.text("Mama Bea's Home & Fashion", 20, y);
+                y += 7;
+                doc.text("Location: Spintex, Accra, Ghana", 20, y);
+                y += 7;
+                doc.text("Phone: +233 59 965 5802 (Main)", 20, y);
+                y += 7;
+                doc.text("WhatsApp: +233 20 899 0922 (Orders)", 20, y);
+                y += 7;
+                doc.text("Email: gideonmensahmarfo@gmail.com", 20, y);
+
+                // Add footer
+                const pageCount = doc.internal.getNumberOfPages();
+                for (let i = 1; i <= pageCount; i++) {
+                    doc.setPage(i);
+                    doc.setFontSize(10);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(
+                        'Thank you for shopping with Mama Bea\'s Home & Fashion',
+                        105,
+                        doc.internal.pageSize.height - 10,
+                        { align: 'center' }
+                    );
+                }
+
+                // Save the PDF
+                doc.save('mama_bea_order_receipt.pdf');
+
+                // Clear the cart
+                cart = [];
+                cartTotal = 0;
+                updateCartUI();
+
+                // Update purchase history display
+                updatePurchaseHistory();
+                
+                showNotification('Order placed successfully! Check your WhatsApp for order confirmation and download the PDF receipt.');
+            } catch (error) {
+                console.error('Error during checkout:', error);
+                showNotification('There was an error processing your order. Please try again.');
+            }
+        }
+
+        // Create new order with proper item quantities
+        function createOrder(items, total) {
+            const order = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                items: items.map(item => ({
+                    name: item.name,
+                    price: item.price,
+                    quantity: item.quantity,
+                    subtotal: item.price * item.quantity
+                })),
+                total: total,
+                status: ORDER_STATUS.PROCESSING,
+                statusHistory: [{
+                    status: ORDER_STATUS.PROCESSING,
+                    date: new Date().toISOString(),
+                    note: 'Order received and is being processed'
+                }],
+                estimatedDelivery: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days from now
+                trackingNumber: generateTrackingNumber()
+            };
+            
+            purchaseHistory.unshift(order);
+            savePurchaseHistory();
+            return order;
+        }
+
+        // Generate tracking number
+        function generateTrackingNumber() {
+            return 'MB' + Date.now().toString().slice(-8) + Math.random().toString(36).substr(2, 4).toUpperCase();
+        }
+
+        // Save purchase history to localStorage
+        function savePurchaseHistory() {
+            localStorage.setItem('purchaseHistory', JSON.stringify(purchaseHistory));
+        }
+
+        // Purchase History functionality
+        let purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+
+        // Order status tracking
+        const ORDER_STATUS = {
+            PROCESSING: 'processing',
+            SHIPPED: 'shipped',
+            DELIVERED: 'delivered',
+            CANCELLED: 'cancelled'
+        };
+
+        // Order status colors and icons
+        const STATUS_STYLES = {
+            processing: {
+                bg: 'bg-blue-100',
+                text: 'text-blue-800',
+                icon: 'fa-clock',
+                label: 'Processing'
+            },
+            shipped: {
+                bg: 'bg-purple-100',
+                text: 'text-purple-800',
+                icon: 'fa-truck',
+                label: 'Shipped'
+            },
+            delivered: {
+                bg: 'bg-green-100',
+                text: 'text-green-800',
+                icon: 'fa-check-circle',
+                label: 'Delivered'
+            },
+            cancelled: {
+                bg: 'bg-red-100',
+                text: 'text-red-800',
+                icon: 'fa-times-circle',
+                label: 'Cancelled'
+            }
+        };
+
+        // Filter orders
+        function filterOrders() {
+            const filterValue = document.getElementById('order-filter').value;
+            let filteredOrders = [...purchaseHistory];
+            
+            if (filterValue !== 'all') {
+                filteredOrders = purchaseHistory.filter(order => order.status === filterValue);
+            }
+            
+            displayOrders(filteredOrders);
+        }
+
+        // Sort orders
+        function sortOrders() {
+            const sortValue = document.getElementById('order-sort').value;
+            let sortedOrders = [...purchaseHistory];
+            
+            switch (sortValue) {
+                case 'newest':
+                    sortedOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    break;
+                case 'oldest':
+                    sortedOrders.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    break;
+                case 'highest':
+                    sortedOrders.sort((a, b) => b.total - a.total);
+                    break;
+                case 'lowest':
+                    sortedOrders.sort((a, b) => a.total - b.total);
+                    break;
+            }
+            
+            displayOrders(sortedOrders);
+        }
+
+        // Initialize Purchase History toggle
+        const toggleHistoryBtn = document.getElementById('toggle-history');
+        const historyContent = document.getElementById('history-content');
+        const noHistory = document.getElementById('no-history');
+
+        // Toggle purchase history visibility
+        toggleHistoryBtn.addEventListener('click', () => {
+            const isHidden = historyContent.style.display === 'none';
+            historyContent.style.display = isHidden ? 'block' : 'none';
+            noHistory.style.display = isHidden ? 'none' : 'block';
+            
+            // Update button text and icon
+            toggleHistoryBtn.innerHTML = isHidden ? 
+                '<i class="fas fa-times mr-2"></i>Hide Purchase History' : 
+                '<i class="fas fa-history mr-2"></i>View Purchase History';
+        });
+
+        // Display orders
+        function displayOrders(orders) {
+            const ordersList = document.getElementById('orders-list');
+            const noHistory = document.getElementById('no-history');
+            const historyContent = document.getElementById('history-content');
+            
+            if (orders.length === 0) {
+                ordersList.innerHTML = '';
+                noHistory.style.display = 'block';
+                historyContent.style.display = 'none';
+                return;
+            }
+
+            noHistory.style.display = 'none';
+            historyContent.style.display = 'block';
+            ordersList.innerHTML = orders.map(order => {
+                const statusStyle = STATUS_STYLES[order.status];
+                return `
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 mb-4">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 dark:text-white">Order #${order.id}</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">${new Date(order.date).toLocaleDateString()}</p>
+                                <p class="text-sm text-gray-500 mt-1">Tracking: ${order.trackingNumber}</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="px-3 py-1 rounded-full text-sm font-medium ${statusStyle.bg} ${statusStyle.text}">
+                                    <i class="fas ${statusStyle.icon} mr-1"></i>${statusStyle.label}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Order Progress -->
+                        <div class="mb-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full ${order.status === ORDER_STATUS.PROCESSING ? 'bg-blue-500' : 'bg-gray-300'} flex items-center justify-center text-white">
+                                        <i class="fas fa-box"></i>
+                                    </div>
+                                    <span class="ml-2 text-sm">Processing</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full ${order.status === ORDER_STATUS.SHIPPED ? 'bg-purple-500' : 'bg-gray-300'} flex items-center justify-center text-white">
+                                        <i class="fas fa-truck"></i>
+                                    </div>
+                                    <span class="ml-2 text-sm">Shipped</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full ${order.status === ORDER_STATUS.DELIVERED ? 'bg-green-500' : 'bg-gray-300'} flex items-center justify-center text-white">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <span class="ml-2 text-sm">Delivered</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Items List -->
+                        <div class="space-y-2 mb-4">
+                            ${order.items.map(item => `
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-300">${item.name}</span>
+                                    <span class="text-green-600">GHS ${item.price.toFixed(2)}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <!-- Order Summary -->
+                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-semibold text-gray-800 dark:text-white">Total</span>
+                                <span class="text-lg font-bold text-green-600">GHS ${order.total.toFixed(2)}</span>
+                            </div>
+                            <p class="text-sm text-gray-500">Estimated Delivery: ${new Date(order.estimatedDelivery).toLocaleDateString()}</p>
+                        </div>
+
+                        <!-- Status History -->
+                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
+                            <h5 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Status History</h5>
+                            <div class="space-y-2">
+                                ${order.statusHistory.map(status => `
+                                    <div class="flex items-start text-sm">
+                                        <i class="fas ${STATUS_STYLES[status.status].icon} mt-1 mr-2 ${STATUS_STYLES[status.status].text}"></i>
+                                        <div>
+                                            <p class="text-gray-600 dark:text-gray-300">${status.note}</p>
+                                            <p class="text-xs text-gray-500">${new Date(status.date).toLocaleString()}</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Update purchase history display
+        function updatePurchaseHistory() {
+            const filterValue = document.getElementById('order-filter').value;
+            const sortValue = document.getElementById('order-sort').value;
+            let filteredOrders = [...purchaseHistory];
+            
+            // Apply filter
+            if (filterValue !== 'all') {
+                filteredOrders = purchaseHistory.filter(order => order.status === filterValue);
+            }
+            
+            // Apply sort
+            switch (sortValue) {
+                case 'newest':
+                    filteredOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    break;
+                case 'oldest':
+                    filteredOrders.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    break;
+                case 'highest':
+                    filteredOrders.sort((a, b) => b.total - a.total);
+                    break;
+                case 'lowest':
+                    filteredOrders.sort((a, b) => a.total - b.total);
+                    break;
+            }
+            
+            displayOrders(filteredOrders);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set initial display state
+            const historyContent = document.getElementById('history-content');
+            const noHistory = document.getElementById('no-history');
+            
+            if (purchaseHistory.length === 0) {
+                historyContent.style.display = 'none';
+                noHistory.style.display = 'block';
+            } else {
+                historyContent.style.display = 'none'; // Initially hidden
+                noHistory.style.display = 'none';
+            }
+            
+            updatePurchaseHistory();
+            
+            // Add event listeners for filters
+            document.getElementById('order-filter').addEventListener('change', filterOrders);
+            document.getElementById('order-sort').addEventListener('change', sortOrders);
+            
+            // Add clear history functionality
+            document.getElementById('clear-history').addEventListener('click', () => {
+                if (confirm('Are you sure you want to clear your purchase history? This action cannot be undone.')) {
+                    purchaseHistory = [];
+                    localStorage.removeItem('purchaseHistory');
+                    updatePurchaseHistory();
+                    showNotification('Purchase history cleared successfully!');
+                }
+            });
+        });
+
+        // WhatsApp message function
+        function sendWhatsAppMessage() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const product = document.getElementById('product').value;
+            const message = document.getElementById('message').value;
+            
+            if (!name || !email || !phone || !message) {
+                showNotification('Please fill in all required fields');
+                return;
+            }
+
+            let whatsappMessage = `*New Inquiry from Website*%0A%0A`;
+            whatsappMessage += `*Customer Information*%0A`;
+            whatsappMessage += `👤 Name: ${name}%0A`;
+            whatsappMessage += `📧 Email: ${email}%0A`;
+            whatsappMessage += `📱 Phone: ${phone}%0A`;
+            if (product && product !== 'none') {
+                whatsappMessage += `%0A*Product Interest*%0A`;
+                whatsappMessage += `🛍️ Product: ${product}%0A`;
+            }
+            whatsappMessage += `%0A*Message*%0A`;
+            whatsappMessage += `${message}%0A%0A`;
+            whatsappMessage += `*Store Information*%0A`;
+            whatsappMessage += `🏪 Mama Bea's Home & Fashion%0A`;
+            whatsappMessage += `📍 Location: Spintex, Accra, Ghana%0A`;
+            whatsappMessage += `📞 Phone: +233 59 965 5802 (Main)%0A`;
+            whatsappMessage += `💬 WhatsApp: +233 20 899 0922 (Orders)%0A`;
+            whatsappMessage += `📧 Email: gideonmensahmarfo@gmail.com`;
+            
+            const whatsappLink = `https://wa.me/233208990922?text=${whatsappMessage}`;
+            window.open(whatsappLink, '_blank');
+            
+            // Clear form after sending
+            document.getElementById('contact-form').reset();
+            showNotification('Message sent successfully!');
+        }
+
+        // Quick Contact Modal functionality
+        function toggleQuickContact() {
+            const modal = document.getElementById('quick-contact-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Add click event to navigation contact link
+        document.querySelector('a[href="#contact"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleQuickContact();
+        });
+
+        // Add these new functions for the order message feature
+        function showOrderMessage() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!');
+                return;
+            }
+
+            const order = createOrder([...cart], cartTotal);
+            const today = new Date();
+            const subtotal = cart.reduce((total, item) => total + item.price, 0);
+            const customerName = document.getElementById('name')?.value || 'Customer';
+            const customerPhone = document.getElementById('phone')?.value || '+233 XX XXX XXXX';
+            const customerEmail = document.getElementById('email')?.value || 'customer@email.com';
+
+            // Create the message with proper formatting
+            const message = `*MAMA BEA'S HOME & FASHION*\n` +
+                `*ORDER RECEIPT*\n\n` +
+                `*Order Details*\n` +
+                `📅 Date: ${today.toLocaleDateString()}\n` +
+                `⏰ Time: ${today.toLocaleTimeString()}\n` +
+                `🔖 Order #: ${order.id}\n` +
+                `📦 Status: Processing\n` +
+                `📝 Tracking #: ${order.trackingNumber}\n\n` +
+                `*Customer Information*\n` +
+                `👤 Name: ${customerName}\n` +
+                `📱 Phone: ${customerPhone}\n` +
+                `📧 Email: ${customerEmail}\n\n` +
+                `*Items Ordered:*\n` +
+                cart.map(item => `• ${item.name} - GHS ${item.price.toFixed(2)}`).join('\n') + '\n\n' +
+                `*Price Summary*\n` +
+                `💰 Subtotal: GHS ${subtotal.toFixed(2)}\n` +
+                `🚚 Delivery Fee: GHS 0.00\n` +
+                `💵 *Total Amount: GHS ${cartTotal.toFixed(2)}*\n\n` +
+                `*Payment Information*\n` +
+                `💳 Payment Method: Cash on Delivery\n` +
+                `📊 Payment Status: Pending\n` +
+                `💵 Amount to Pay: GHS ${cartTotal.toFixed(2)}\n\n` +
+                `*Delivery Information*\n` +
+                `📅 Estimated Delivery: ${new Date(order.estimatedDelivery).toLocaleDateString()}\n\n` +
+                `*Store Information*\n` +
+                `🏪 Mama Bea's Home & Fashion\n` +
+                `📍 Location: Spintex, Accra, Ghana\n` +
+                `📞 Phone: +233 59 965 5802 (Main)\n` +
+                `💬 WhatsApp: +233 20 899 0922 (Orders)\n` +
+                `📧 Email: gideonmensahmarfo@gmail.com\n\n` +
+                `Thank you for shopping with Mama Bea's Home & Fashion! 🙏`;
+
+            // Store the message in the preview element
+            document.getElementById('order-message-preview').textContent = message;
+            
+            // Show the modal
+            toggleOrderMessage();
+
+            // Automatically send the message
+            sendOrderMessage();
+        }
+
+        function sendOrderMessage() {
+            try {
+                // Get the message from the preview
+                const message = document.getElementById('order-message-preview').textContent;
+                
+                // Encode the message for WhatsApp URL
+                const encodedMessage = encodeURIComponent(message);
+                
+                // Create WhatsApp link with your number
+                const whatsappLink = `https://wa.me/233599655802?text=${encodedMessage}`;
+                
+                // Open WhatsApp with the message
+                window.open(whatsappLink, '_blank');
+                
+                // Close the modal
+                toggleOrderMessage();
+                
+                // Show success notification
+                showNotification('Order message sent to WhatsApp!');
+                
+                // Clear the cart after successful sending
+                cart = [];
+                cartTotal = 0;
+                updateCartUI();
+                
+                // Update purchase history
+                updatePurchaseHistory();
+            } catch (error) {
+                console.error('Error sending message:', error);
+                showNotification('Error sending message. Please try again.');
+            }
+        }
+
+        function toggleOrderMessage() {
+            const modal = document.getElementById('order-message-modal');
+            if (modal) {
+                modal.classList.toggle('hidden');
+            }
+        }
+
+        // Add this JavaScript for smooth scrolling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const headerOffset = 100; // Adjust this value based on your header height
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Update active navigation link on scroll
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section[id]');
+                const scrollPosition = window.scrollY + 100; // Adjust for header height
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.classList.remove('text-green-600', 'border-green-600');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('text-green-600', 'border-green-600');
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
